@@ -1,29 +1,30 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
+// STEP 1: Define your live backend URL here
+const API_BASE = "https://nexdo.onrender.com";
+
 function App() {
   const [task, setTask] = useState("");
   const [category, setCategory] = useState("General");
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // FETCH TASKS FROM CLOUD
   useEffect(() => {
-    fetch("http://localhost:5000/tasks")
+    fetch(`${API_BASE}/tasks`)
       .then((res) => res.json())
-      .then((data) => setTasks(data));
+      .then((data) => setTasks(data))
+      .catch(err => console.error("Fetch Error:", err));
   }, []);
 
-  // UPDATED: Now accepts the current category to send to the AI
   const suggestIdea = async () => {
     setLoading(true);
     try {
-      // We pass the current category state to the backend route
-      const res = await fetch(`http://localhost:5000/suggest?category=${category}`);
+      // UPDATED URL
+      const res = await fetch(`${API_BASE}/suggest?category=${category}`);
       const data = await res.json();
-      
-      // Update the input field with the AI's response
       setTask(data.text);
-      // Synchronize the category (in case the AI suggests a slight change)
       setCategory(data.category || category);
     } catch (err) {
       console.error("AI Error:", err);
@@ -34,7 +35,7 @@ function App() {
 
   const addTask = async () => {
     if (!task.trim()) return;
-    const res = await fetch("http://localhost:5000/tasks", {
+    const res = await fetch(`${API_BASE}/tasks`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: task, category: category }),
@@ -46,8 +47,10 @@ function App() {
   };
 
   const deleteTask = async (id) => {
-    await fetch(`http://localhost:5000/tasks/${id}`, { method: "DELETE" });
-    setTasks(tasks.filter((t) => t.id !== id));
+    // UPDATED URL - Note the backticks for the ID
+    await fetch(`${API_BASE}/tasks/${id}`, { method: "DELETE" });
+    // IMPORTANT: MongoDB uses _id, so we filter by _id
+    setTasks(tasks.filter((t) => (t._id || t.id) !== id));
   };
 
   return (
@@ -58,7 +61,6 @@ function App() {
             <h1>NexDo</h1>
             <p className="subtitle">Organize smarter. Execute better.</p>
           </div>
-          {/* Button label now shows which category the AI will help with */}
           <button 
             onClick={suggestIdea} 
             className={`suggest-btn ${loading ? 'loading' : ''}`}
@@ -94,12 +96,13 @@ function App() {
 
         <div className="task-list">
           {tasks.map((t) => (
-            <div key={t.id} className={`task-item cat-${t.category?.toLowerCase()}`}>
+            /* IMPORTANT: We use t._id here because MongoDB provides _id */
+            <div key={t._id || t.id} className={`task-item cat-${t.category?.toLowerCase()}`}>
               <div className="task-info">
                 <div className="category-icon">{t.category?.[0] || 'G'}</div>
                 <span>{t.text}</span>
               </div>
-              <button onClick={() => deleteTask(t.id)} className="delete-btn">✕</button>
+              <button onClick={() => deleteTask(t._id || t.id)} className="delete-btn">✕</button>
             </div>
           ))}
         </div>
