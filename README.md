@@ -1,16 +1,29 @@
-# React + Vite
+ NexDo: AI-Powered Productivity
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NexDo is a modern, full-stack To-Do application that leverages the power of the **Gemini 1.5 Flash AI** to help you brainstorm tasks. Built with a decoupled architecture, it offers a snappy user interface and a robust cloud-connected backend.
 
-Currently, two official plugins are available:
+Live Demo
+Frontend: [https://nexdo-mocha.vercel.app/](https://nexdo-mocha.vercel.app/)  
+Backend API: [https://nexdo.onrender.com/tasks](https://nexdo.onrender.com/tasks)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Key Features
+* **AI Suggestions:** Feeling stuck? Use the "Suggest" button to get context-aware task ideas based on your selected category (Work, Health, Personal, etc.).
+* **Cloud Persistence:** Your tasks are securely stored in **MongoDB Atlas**, meaning they stay saved even if you refresh or switch devices.
+* **Decoupled Architecture:** High-performance frontend hosted on **Vercel** communicating with a **Node.js/Express** backend on **Render**.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
+* **Frontend:** React.js, CSS3 (Modern Viewport Design)
+* **Backend:** Node.js, Express.js
+* **Database:** MongoDB Atlas (Mongoose ODM)
+* **AI Intelligence:** Google Gemini API
+* **Deployment:** Vercel (Frontend) & Render (Backend)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+## 🚀 How It Works
+1.  **Request:** When you click "Suggest," the React frontend sends a category (e.g., "Health") to the Express server.
+2.  **AI Logic:** The server prompts the **Gemini AI** to "Suggest one unique task for Health."
+3.  **Response:** The AI returns a JSON object, which the server passes back to the UI.
+4.  **Storage:** When you click "Add," the task is permanently recorded in the MongoDB cloud database.
