@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* 1. Eliminate the White Gap */
+html, body, #root {
+  background-color: #050505;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.main-viewport {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top left, #1a1a2e 0%, #050505 100%);
+  padding: 20px;
+}
+
+/* 2. Application Card */
+.app-card {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(15, 15, 15, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. Header Styling */
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+.brand h1 { font-size: 4rem; font-weight: 900; letter-spacing: -2px; margin: 0; }
+.subtitle { color: #6366f1; font-family: monospace; letter-spacing: 3px; font-size: 0.75rem; }
+.suggest-btn { background: white; color: black; font-weight: bold; padding: 12px 24px; border-radius: 12px; transition: 0.3s; cursor: pointer; }
+.suggest-btn:hover { background: #6366f1; color: white; transform: scale(1.05); }
+
+/* 4. Input Area */
+.input-wrapper { position: relative; display: flex; gap: 10px; margin-bottom: 20px; }
+.input-wrapper input { flex: 1; background: #111; border: 1px solid #222; border-radius: 16px; padding: 18px 24px; color: white; font-size: 1.1rem; outline: none; transition: 0.3s; }
+.input-wrapper input:focus { border-color: #6366f1; background: #151515; }
+.push-btn { background: #6366f1; border-radius: 12px; padding: 0 30px; font-weight: 900; cursor: pointer; }
+
+/* 5. Category Chips */
+.category-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+.category-chips button { padding: 8px 16px; border-radius: 10px; background: #111; border: 1px solid #222; color: #555; font-size: 0.7rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.category-chips button.active { background: white; color: black; border-color: white; }
+
+/* 6. Dynamic Category Colors */
+.task-item { display: flex; justify-content: space-between; align-items: center; background: #111; padding: 12px; border-radius: 24px; margin-bottom: 12px; border: 1px solid transparent; transition: 0.3s; }
+
+.category-icon { width: 48px; height: 48px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-weight: bold; background: #222; margin-right: 20px; }
+
+/* The Color Engine */
+.cat-work .category-icon { background: linear-gradient(135deg, #3b82f6, #06b6d4); box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
+.cat-health .category-icon { background: linear-gradient(135deg, #10b981, #34d399); box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
+.cat-urgent .category-icon { background: linear-gradient(135deg, #ef4444, #f59e0b); box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+.cat-personal .category-icon { background: linear-gradient(135deg, #8b5cf6, #ec4899); box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
+
+.delete-btn { color: #444; margin-right: 15px; cursor: pointer; transition: 0.3s; }
+.delete-btn:hover { color: #ef4444; }
